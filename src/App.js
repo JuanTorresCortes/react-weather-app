@@ -1,38 +1,3 @@
-// import { useEffect, useState } from 'react';
-// import './App.css';
-
-
-// function App() {
-//   // console.log(process.env.REACT_APP_WEATHER_API_KEY)
-//   const [currentWeather, setCurrentWeather] = useState({})
-//   const [locationKey, setLocationKey] = useState("")
-//   const [zipCode, setZipCode] = useState("")
-
-//   const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
-
-//   useEffect(() => {
-//     const getData = async () => {
-//       const response = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${locationKey}search?apikey=${apiKey}&q=77316`)
-//       const data = await response.json()
-//       console.log(data)
-//       setLocationKey()
-//     }
-//     if (locationKey !== "") getData();
-//   },[locationKey])
-
-//   return (
-//     <div className="App">
-      
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
-// // "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=t9VEPoCHgeGUsDbrL5rudholu3l1RHiV&q=77316"
-
-
 import { useEffect, useState } from 'react';
 import './App.css';
 
@@ -44,21 +9,22 @@ function App() {
 
   const apiKey = process.env.REACT_APP_WEATHER_API_KEY; // Retrieve the weather API key from environment variables
 
-  // Event handler for zip code input change
+  // Event handler for zip code state invoked by input 
   const handleZipCodeChange = (event) => {
     setZipCode(event.target.value); // Update the zipCode state variable with the entered value
   };
 
   // Event handler for fetching weather based on zip code
-  const handleFetchWeather = async () => {
+  const handleFetchWeatherLocation = async () => {
+    if(zipCode === "") alert("Enter valid zip code") // check zipCode verify that it holds a value
     // Make a request to the Weather Locations API to get the location data based on the zip code
     const locationResponse = await fetch(`http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=${apiKey}&q=${zipCode}`);
     const locationData = await locationResponse.json();
     // check locationData dose the location exist
-    if (locationData.length > 0) {
+    if (locationData !== "") {
       const key = locationData[0].Key; // Extract the location key from the response
       setLocationKey(key); // Update the locationKey state variable with the extracted key
-    }else{ alert("location can not be found")}
+    }else{ alert("location of zip code can not be found")}
   };
 
   // useEffect hook to fetch weather data when locationKey is set
@@ -80,10 +46,9 @@ function App() {
       <h1>My weather app</h1>
       <div className='input-div'>
         {/* Input field for entering the zip code */}
-        <label htmlFor="input"></label>
         <input type="text" placeholder="Enter Zip Code" value={zipCode} onChange={handleZipCodeChange} />
         {/* Button for fetching weather based on the entered zip code */}
-        <button onClick={handleFetchWeather}>Get Weather</button>
+        <button onClick={handleFetchWeatherLocation}>Get Weather</button>
       </div>
       {currentWeather.Headline && (
         <div>
