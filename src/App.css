@@ -1,20 +1,10 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  background-color: #02112f;
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #02112f;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -39,4 +29,31 @@
 
 .input-div {
   margin-top: 3em;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-container {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.city-card {
+  border: 3px solid blue;
+  margin: 2px;
+  padding: 2px;
+}
+
+.weatherDiv {
+  background-color: #733f85;
+  margin: 4em;
 }
